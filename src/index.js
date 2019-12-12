@@ -21,7 +21,17 @@ import './styles/index.css';
 /***************************************
   APP
 ***************************************/
+const compose = (
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux.compose
+);
+
+const avatarStore = avatar.store.create (
+  compose (redux.applyMiddleware (thunk, logger))
+);
+
 ReactDOM.render (
-  <App />
+  <ReactRedux.Provider store={avatarStore}>
+    <App/>
+  </ReactRedux.Provider>
 , document.getElementById ('root')
 );
