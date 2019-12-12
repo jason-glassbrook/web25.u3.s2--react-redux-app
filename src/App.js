@@ -1,6 +1,9 @@
 /// external modules ///
 import React from 'react';
 
+/// components ///
+import Avatar from 'components/Avatar';
+
 /// styles ///
 import './styles/App.css';
 
@@ -10,6 +13,7 @@ import './styles/App.css';
 const App = () => {
   return (
     <div className='App'>
+      <Avatar/>
     </div>
   );
 }
