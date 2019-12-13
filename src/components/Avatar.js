@@ -1,6 +1,6 @@
 /// external modules ///
 import React from 'react';
-import ReactRedux from 'react-redux';
+import * as ReactRedux from 'react-redux';
 
 /// components ///
 import Loader from 'react-loader-spinner';
@@ -9,8 +9,25 @@ import Loader from 'react-loader-spinner';
 import { actions } from 'states/avatar'
 
 /***************************************
-  MAIN
+  REDUX
 ***************************************/
+
+const mapStateToProps = (state) => ({
+  text      : state.text,
+  isGetting : state.isGetting,
+  error     : state.error,
+});
+
+const mapDispatchToProps = {};
+
+const connectAvatar = ReactRedux.connect (
+  mapStateToProps, mapDispatchToProps,
+);
+
+/***************************************
+  COMPONENT
+***************************************/
+
 const Avatar = (props) => {
   return (
     <div className='Avatar'>Avatar</div>
@@ -19,4 +36,4 @@ const Avatar = (props) => {
 
 /**************************************/
 
-export default Avatar;
+export default connectAvatar (Avatar);
