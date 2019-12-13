@@ -33,11 +33,11 @@ export const specials = {}
     dispatch ({ type: types.GET_AVATAR_START });
     axios
       .get (api)
-      .then (res => {
-        dispatch ({ type: types.GET_AVATAR_SUCCESS, payload: res.data.value });
+      .then ((response) => {
+        dispatch ({ type: types.GET_AVATAR_SUCCESS, payload: response.data.value });
       })
-      .catch (err => {
-        dispatch ({ type: types.GET_AVATAR_FAILURE, payload: err.response });
+      .catch ((error) => {
+        dispatch ({ type: types.GET_AVATAR_FAILURE, payload: error.response });
       });
   };
 
