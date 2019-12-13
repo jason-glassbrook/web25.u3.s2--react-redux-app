@@ -18,7 +18,9 @@ const mapStateToProps = (state) => ({
   error     : state.error,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  getAvatar : actions.specials.getAvatar.thunk
+};
 
 const connectAvatar = ReactRedux.connect (
   mapStateToProps, mapDispatchToProps,
@@ -30,7 +32,15 @@ const connectAvatar = ReactRedux.connect (
 
 const Avatar = (props) => {
   return (
-    <div className='Avatar'>Avatar</div>
+    <div className='Avatar'>
+      <h1>Chuck Norris Jokes of Awesomeness 💪</h1>
+      {!props.text && !props.isGetting && <p>Go ahead! Fetch a joke 😂</p>}
+      {props.isGetting && (
+        <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+      )}
+      {props.text && <p>{props.text.joke}</p>}
+      <button onClick={props.getAvatar}>Get Chucked!</button>
+    </div>
   );
 };
 
