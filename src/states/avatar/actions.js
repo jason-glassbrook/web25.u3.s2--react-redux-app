@@ -1,13 +1,18 @@
+import axios from 'axios';
+
 /***************************************
   MAIN
 ----------------------------------------
-  - types  : list of action types
-  - make   : fun to make (create) an action obj
-  - makers : obj of action maker (creator) funs
+  - types    : list of action types
+  - make     : fun to make (create) an action obj
+  - makers   : obj of action maker (creator) funs
+  - specials : obj of specialized dispatchers
 ***************************************/
 
 export const types = {
-  DO_SOMETHING : 'DO_SOMETHING',
+  GET_AVATAR_START   : 'GET_AVATAR_START',
+  GET_AVATAR_SUCCESS : 'GET_AVATAR_SUCCESS',
+  GET_AVATAR_FAILURE : 'GET_AVATAR_FAILURE',
 };
 
 const make = (type, data) => ({ type, data });
@@ -17,6 +22,27 @@ export const makers = Object.fromEntries (
     name, (...args) => make (name, ...args)
   ])
 );
+
+export const specials = {}
+
+/* getAvatar */ {
+  // kept picking APIs that didn't actually require axios...
+  const api = 'https://api.icndb.com/jokes/random?exclude=[explicit]';
+
+  const thunker = (...args) => () => (dispatch) => {
+    dispatch ({ type: types.GET_AVATAR_START });
+    axios
+      .get (api)
+      .then (res => {
+        dispatch ({ type: types.GET_AVATAR_SUCCESS, payload: res.data.value });
+      })
+      .catch (err => {
+        dispatch ({ type: types.GET_AVATAR_FAILURE, payload: err.response });
+      });
+  };
+
+  specials.getAvatar = { api, thunker };
+}
 
 /**************************************/
 
