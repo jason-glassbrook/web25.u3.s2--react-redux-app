@@ -49,4 +49,5 @@ export const specials = {}
 export default {
   types,
   makers,
+  specials,
 };
