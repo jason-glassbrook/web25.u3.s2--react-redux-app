@@ -29,7 +29,7 @@ export const specials = {}
   // kept picking APIs that didn't actually require axios...
   const api = 'https://api.icndb.com/jokes/random?exclude=[explicit]';
 
-  const thunker = (...args) => () => (dispatch) => {
+  const thunk = () => (dispatch) => {
     dispatch ({ type: types.GET_AVATAR_START });
     axios
       .get (api)
@@ -41,7 +41,7 @@ export const specials = {}
       });
   };
 
-  specials.getAvatar = { api, thunker };
+  specials.getAvatar = { api, thunk };
 }
 
 /**************************************/
